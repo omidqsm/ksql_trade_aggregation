@@ -1,6 +1,6 @@
-this project is a simple example for aggregation stock market trades on daily and minutely basis.
+<h3>This project is a simple example for aggregation stock market trades on daily and minutely basis.</h3>
 
-instructions:
-- create docker a required docked image for kafka connect: docker build -t my-kafka-connect-image .
-- start up services: 'docker compose up -d'
-- after about 1 minute, tables "trade_daily" and "trade_minutely" should start to be populated with records and upsert commands
+Instructions:
+- Create docker a required docked image for kafka connect: <code>docker build -t my-kafka-connect-image .</code>
+- Start up services: <code>docker compose up -d</code>
+- After about 1 minute, tables <b>"trade_daily"</b> and <b>"trade_minutely"</b> should start to be populated with records and upsert commands
