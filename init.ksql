@@ -1,0 +1,42 @@
+create stream trade_stream with (KAFKA_TOPIC='TRADE', VALUE_FORMAT='AVRO', PARTITIONS=1);
+
+
+create table ohlc_day as 
+    select 
+        symbol + '_' + split(time, ' ')[1] as "table_key", 
+        SUM(quantity) as "sum_qty", 
+        EARLIEST_BY_OFFSET(price) as "open",
+        MAX(price) as "high",
+        MIN(price) as "low",
+        LATEST_BY_OFFSET(price) as "close"
+    from trade_stream
+    group by symbol + '_' + split(time, ' ')[1];
+
+
+create table ohlc_day_ext as
+select
+    split("table_key", '_')[1] as "symbol",
+    cast(split("table_key", '_')[2] as date) as "date",
+    *
+from ohlc_day;
+
+
+create table ohlc_min as 
+    select
+        symbol + '_' + split(time, ' ')[1] + '_' + substring(split(time, ' ')[2], 1, 5) as "table_key",
+        SUM(quantity) as "quantity", 
+        EARLIEST_BY_OFFSET(price) as "open",
+        MAX(price) as "high",
+        MIN(price) as "low",
+        LATEST_BY_OFFSET(price) as "close"
+    from trade_stream
+    group by symbol + '_' + split(time, ' ')[1] + '_' + substring(split(time, ' ')[2], 1, 5);
+
+
+create table ohlc_min_ext as
+select
+    split("table_key", '_')[1] as "symbol",
+    cast(split("table_key", '_')[2] as date) as "date",
+    split("table_key", '_')[3] as "time",
+    *
+from ohlc_min;

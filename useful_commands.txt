@@ -1,0 +1,11 @@
+-- for accessing ksqldb cli
+ksql http://ksqldb-server:8088
+
+-- for accessing postgres cli
+psql -U user postgres
+
+-- print first 3 entries of a topic
+print 'OHLC_DAY_EXT' from beginning limit 3;
+
+-- drop a table along with its associated topic
+drop table OHLC_DAY_EXT delete topic;

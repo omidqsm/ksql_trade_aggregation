@@ -1,0 +1,65 @@
+{
+  "namespace": "ksql",
+  "name": "StockTrade",
+  "doc": "Defines a hypothetical stock trade using some known test stock symbols.",
+  "type": "record",
+  "fields": [
+    {
+      "name": "trade_id",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "iteration": {
+            "start": 1000,
+            "step": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "symbol",
+      "doc": "Simulated stock symbols",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [ "Apple", "Microsoft", "Google" ]
+        }
+      }
+    },
+    {
+      "name": "quantity",
+      "doc": "A simulated random quantity of the trade",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "range": {
+            "min": 1,
+            "max": 5000
+          }
+        }
+      }
+    },
+    {
+      "name": "price",
+      "doc": "A simulated random trade price in pennies",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "range": {
+            "min": 5,
+            "max": 1000
+          }
+        }
+      }
+    },
+    {
+      "name": "time",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "regex": "2023-01-0[1-2] 09:[0][1-3]:([0][1-9]|[1-5][0-9])"
+        }
+      }
+    }
+  ]
+}
